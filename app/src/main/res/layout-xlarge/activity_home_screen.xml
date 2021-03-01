@@ -22,7 +22,13 @@
     android:layout_width="400dp"
     android:layout_height="400dp"
     android:src="@drawable/triviafinal"/>
-
+    <Button
+        android:id="@+id/next_level_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/next_level" />
     <info.hoang8f.widget.FButton
         android:id="@+id/playGame"
         fbutton:buttonColor="@color/lightGreen"
