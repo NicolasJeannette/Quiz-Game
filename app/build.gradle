@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
     defaultConfig {
         applicationId "sarveshchavan777.triviaquiz"
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -26,6 +26,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+
+
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'info.hoang8f:fbutton:1.0.5'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -41,3 +43,4 @@ dependencies {
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
 }
+
