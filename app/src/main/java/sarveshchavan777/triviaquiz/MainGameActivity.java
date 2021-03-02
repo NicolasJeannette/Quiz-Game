@@ -22,6 +22,7 @@ import java.util.List;
 
 import info.hoang8f.widget.FButton;
 
+
 public class MainGameActivity extends AppCompatActivity {
     FButton buttonA, buttonB, buttonC, buttonD;
     TextView questionText, triviaQuizText, timeText, resultText, coinText;

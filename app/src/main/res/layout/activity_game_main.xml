@@ -7,8 +7,8 @@
     android:background="@color/backgroundColor"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <androidx.appcompat.widget.Toolbar
+
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/lightGreen"
@@ -23,7 +23,8 @@
                 android:id="@+id/coinImage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/coin" />
+                android:src="@drawable/coin"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/coinText"
@@ -60,11 +61,11 @@
                 android:textSize="20sp" />
 
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"></View>
+        android:layout_height="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -108,7 +109,7 @@
             android:layout_margin="10dp"
             android:onClick="buttonA"
             android:text=""
-            android:textColor="@color/grey"></info.hoang8f.widget.FButton>
+            android:textColor="@color/grey" />
 
         <info.hoang8f.widget.FButton
             android:id="@+id/buttonB"
