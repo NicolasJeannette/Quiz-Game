@@ -2,6 +2,7 @@ package sarveshchavan777.triviaquiz;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import info.hoang8f.widget.FButton;
 
@@ -26,11 +28,18 @@ public class MainGameActivity extends AppCompatActivity {
     TriviaQuestion currentQuestion;
     List<TriviaQuestion> list;
     int qid = 0;
-    int timeValue = 20;
+    long timeValue = 2;
     int coinValue = 0;
     CountDownTimer countDownTimer;
     Typeface tb, sb;
+    long display;
+    boolean timermarche;
 
+
+    private boolean mTimerRunning;
+    private long mTimeLeftInMillis;
+    private long mEndTime;
+    private CountDownTimer mCountDownTimer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,40 +90,52 @@ public class MainGameActivity extends AppCompatActivity {
         //currentQuestion will hold the que, 4 option and ans for particular id
         currentQuestion = list.get(qid);
 
-        //countDownTimer
-        countDownTimer = new CountDownTimer(22000, 1000) {
-            public void onTick(long millisUntilFinished) {
 
-                //here you can have your logic to set text to timeText
-                timeText.setText(String.valueOf(timeValue) + "\"");
 
-                //With each iteration decrement the time by 1 sec
-                timeValue -= 1;
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        mTimeLeftInMillis = prefs.getLong("millisLeft", 5000);
+        mTimerRunning = prefs.getBoolean("timerRunning", false);
+        updateCountDownText();
+        startTimer();
+        if (mTimerRunning) {
+            mEndTime = prefs.getLong("endTime", 0);
+            mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
+            if (mTimeLeftInMillis < 0) {
+                mTimeLeftInMillis = 0;
+                mTimerRunning = false;
+                updateCountDownText();
 
-                //This means the user is out of time so onFinished will called after this iteration
-                if (timeValue == -1) {
-
-                    //Since user is out of time setText as time up
-                    resultText.setText(getString(R.string.timeup));
-
-                    //Since user is out of time he won't be able to click any buttons
-                    //therefore we will disable all four options buttons using this method
-                    disableButton();
-                }
+            } else {
+                startTimer();
             }
-
-            //Now user is out of time
-            public void onFinish() {
-                //We will navigate him to the time up activity using below method
-                timeUp();
-            }
-        }.start();
-
-        //This method will set the que and four options
-        updateQueAndOptions();
-
-
+        }
     }
+
+
+
+   private void startTimer() {
+       mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
+       mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+           @Override
+           public void onTick(long millisUntilFinished) {
+               mTimeLeftInMillis = millisUntilFinished;
+               updateCountDownText();
+           }
+           @Override
+           public void onFinish() {
+               mTimerRunning = false;
+
+           }
+       }.start();
+       mTimerRunning = true;
+
+   }
+       private void updateCountDownText () {
+
+           int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+           String timeLeftFormatted = String.format(Locale.getDefault(), "%02d", seconds);
+           timeText.setText(timeLeftFormatted);
+       }
 
 
     public void updateQueAndOptions() {
