@@ -1,31 +1,26 @@
-package sarveshchavan777.triviaquiz;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.os.CountDownTimer;
-import android.os.Bundle;
-import android.os.SystemClock;
-import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
+        package sarveshchavan777.triviaquiz;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+        import android.app.Dialog;
+        import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.graphics.Color;
+        import android.graphics.Typeface;
+        import android.graphics.drawable.ColorDrawable;
+        import android.os.Bundle;
+        import android.os.CountDownTimer;
+        import android.view.View;
+        import android.view.Window;
+        import android.widget.TextView;
 
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.core.content.ContextCompat;
 
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+        import java.util.Collections;
+        import java.util.List;
+        import java.util.Locale;
 
-
-import info.hoang8f.widget.FButton;
-
+        import info.hoang8f.widget.FButton;
 
 public class MainGameActivity extends AppCompatActivity {
     FButton buttonA, buttonB, buttonC, buttonD;
@@ -34,15 +29,17 @@ public class MainGameActivity extends AppCompatActivity {
     TriviaQuestion currentQuestion;
     List<TriviaQuestion> list;
     int qid = 0;
-
-
-  private static final long timeValue = 22000;
-   private long tempsrestant = 0;
-   private long tempsfin = 0;
-   private boolean timermarche;
+    static final long timeValue = 20000;
     int coinValue = 0;
     CountDownTimer countDownTimer;
     Typeface tb, sb;
+    long display;
+    boolean timermarche;
+
+
+    private boolean mTimerRunning;
+    private long mTimeLeftInMillis;
+    private long mEndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,27 +91,41 @@ public class MainGameActivity extends AppCompatActivity {
         //currentQuestion will hold the que, 4 option and ans for particular id
         currentQuestion = list.get(qid);
 
-        //countDownTimer
-        if (timermarche){
-
+        if (mTimerRunning) {
+            pause();
+        } else {
+            startTimer();
         }
-        else
-        {Timer();}
+
+
+        startTimer();
+    }
 
 
 
-        //This method will set the que and four options
-        updateQueAndOptions();
-
+    private void startTimer() {
+        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
+        countDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTimeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+            @Override
+            public void onFinish() {
+                mTimerRunning = false;
+                timeUp();
+            }
+        }.start();
+        mTimerRunning = true;
 
     }
-    public void TextTimer()
-    {
-        int seconds = (int) (tempsrestant / 1000) % 60;
-        String temps = String.format(Locale.getDefault(), "%02d", seconds);
+    private void updateCountDownText () {
 
-        timeText.setText(temps);
-        if (timeValue <= -1) {
+        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d", seconds);
+        timeText.setText(timeLeftFormatted);
+        if (mTimeLeftInMillis <= -1) {
 
             //Since user is out of time setText as time up
             resultText.setText(getString(R.string.timeup));
@@ -125,33 +136,6 @@ public class MainGameActivity extends AppCompatActivity {
         }
     }
 
-    public void Timer()
-    {
-        tempsfin =  System.currentTimeMillis() + tempsrestant;
-        countDownTimer = new CountDownTimer(tempsrestant, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-                //here you can have your logic to set text to timeText
-
-                tempsrestant = millisUntilFinished;
-                //With each iteration decrement the time by 1 sec
-
-
-                //This means the user is out of time so onFinished will called after this iteration
-                TextTimer();
-            }
-
-            //Now user is out of time
-            @Override
-            public void onFinish() {
-                timermarche = false;
-                //We will navigate him to the time up activity using below method
-                timeUp();
-            }
-        }.start();
-        timermarche = true;
-    }
 
     public void updateQueAndOptions() {
 
@@ -180,7 +164,7 @@ public class MainGameActivity extends AppCompatActivity {
     public void buttonA(View view) {
         //compare the option with the ans if yes then make button color green
         if (currentQuestion.getOptA().equals(currentQuestion.getAnswer())) {
-            buttonA.setButtonColor(ContextCompat.getColor(getApplicationContext(), R.color.lightGreen));
+            buttonA.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             //Check if user has not exceeds the que limit
             if (qid < list.size() - 1) {
 
@@ -262,6 +246,8 @@ public class MainGameActivity extends AppCompatActivity {
     //This method is called when user ans is wrong
     //this method will navigate user to the activity PlayAgain
     public void gameLostPlayAgain() {
+        VibratorManager vm = new VibratorManager(MainGameActivity.this);
+        vm.playVibrator(1);
         Intent intent = new Intent(this, PlayAgain.class);
         startActivity(intent);
         finish();
@@ -275,46 +261,58 @@ public class MainGameActivity extends AppCompatActivity {
         finish();
     }
 
+    //If user press home button and come in the game from memory then this
+    //method will continue the timer from the previous time it left
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        SharedPreferences preferences = getSharedPreferences("preferences", MODE_PRIVATE);
-        tempsrestant = preferences.getLong("timerrestant",  timeValue);
-        timermarche = preferences.getBoolean("timermarche", false);
-        TextTimer();
-        if (timermarche){
-            tempsfin = preferences.getLong("timerfin",0);
-            tempsrestant =  tempsfin - System.currentTimeMillis();
+    protected void reset() {
 
-            if (tempsrestant < 0){
-                tempsrestant = 0;
-                timermarche = false;
-                TextTimer();
-            }
-            else{
-                Timer();
-            }
-        }
+        mTimeLeftInMillis = timeValue;
+        updateCountDownText();
+
     }
+
     //When activity is destroyed then this will cancel the timer
     @Override
     protected void onStop() {
         super.onStop();
-        SharedPreferences preferences = getSharedPreferences("preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putLong("timerrestant",tempsrestant);
-        editor.putBoolean("timermarche",timermarche);
-        editor.putLong("timerfin", tempsfin);
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong("millisLeft", mTimeLeftInMillis);
+        editor.putBoolean("timerRunning", mTimerRunning);
+        editor.putLong("endTime", mEndTime);
         editor.apply();
-
-        if (countDownTimer != null){
+        if (countDownTimer != null) {
             countDownTimer.cancel();
         }
-
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        mTimeLeftInMillis = prefs.getLong("millisLeft", timeValue);
+        mTimerRunning = prefs.getBoolean("timerRunning", false);
+        updateCountDownText();
 
+        if (mTimerRunning) {
+            mEndTime = prefs.getLong("endTime", 0);
+            mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
+            if (mTimeLeftInMillis < 0) {
+                mTimeLeftInMillis = 0;
+                mTimerRunning = false;
+                updateCountDownText();
+
+            } else {
+                startTimer();
+            }
+        }
+    }
+
+    //This will pause the time
+ private void pause(){
+     countDownTimer.cancel();
+     mTimerRunning = false;
+ }
 
     //On BackPressed
     @Override
@@ -337,7 +335,7 @@ public class MainGameActivity extends AppCompatActivity {
         dialogCorrect.show();
 
         //Since the dialog is show to user just pause the timer in background
-        onPause();
+        pause();
 
 
         TextView correctText = (TextView) dialogCorrect.findViewById(R.id.correctText);

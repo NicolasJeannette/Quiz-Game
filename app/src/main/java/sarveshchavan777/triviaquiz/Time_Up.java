@@ -14,6 +14,7 @@ import info.hoang8f.widget.FButton;
 public class Time_Up extends AppCompatActivity {
     FButton playAgainButton;
     TextView timeUpText;
+    VibratorManager vibrator = new VibratorManager(Time_Up.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class Time_Up extends AppCompatActivity {
         //Initialize
         playAgainButton = (FButton)findViewById(R.id.playAgainButton);
         timeUpText = (TextView)findViewById(R.id.timeUpText);
-
+        vibrator.playVibrator(1);
         //play again button onclick listener
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
