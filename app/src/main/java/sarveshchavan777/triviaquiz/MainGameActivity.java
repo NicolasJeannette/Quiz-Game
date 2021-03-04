@@ -97,7 +97,7 @@ public class MainGameActivity extends AppCompatActivity {
             startTimer();
         }
 
-
+        updateQueAndOptions();
         startTimer();
     }
 
