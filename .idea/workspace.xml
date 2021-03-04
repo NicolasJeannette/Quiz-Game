@@ -9,7 +9,32 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a00de11-ce63-44c6-aaa1-4da40f6c2f4d" name="Default Changelist" comment="" />
+    <list default="true" id="5a00de11-ce63-44c6-aaa1-4da40f6c2f4d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/modules/app/quiz.app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/quiz.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Quiz-Game.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Quiz-Game.app.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/sarveshchavan777/triviaquiz/MainGameActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/sarveshchavan777/triviaquiz/MainGameActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/sarveshchavan777/triviaquiz/Time_Up.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/sarveshchavan777/triviaquiz/Time_Up.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-large/activity_game_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-large/activity_game_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_game_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_game_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-small/activity_game_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-small/activity_game_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_game_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_game_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_game_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_game_main.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,11 +43,18 @@
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_XL_API_30]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[UWGYNFA65SFMWOIV]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,6 +71,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.-230296401">
@@ -54,7 +87,7 @@
       </method>
     </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="Quiz-Game.app" />
+      <module name="quiz.app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
@@ -137,10 +170,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="baptsion version" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="92" y="92" width="2376" height="1216" key="AVDManager" timestamp="1614607088127">
+    <state x="92" y="92" width="2376" height="1216" key="AVDManager" timestamp="1614845567307">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="92" y="92" width="2376" height="1216" key="AVDManager/2560.180.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1614607088127" />
+    <state x="92" y="92" width="2376" height="1216" key="AVDManager/2560.180.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1614845567307" />
     <state x="804" y="100" width="1200" height="610" key="DiffContextDialog" timestamp="1614607605411">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -165,6 +198,14 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="2516" height="400" key="GridCell.Tab.0.right/2560.180.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1614612189237" />
+    <state x="781" y="345" key="SettingsEditor" timestamp="1614699719569">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="781" y="345" key="SettingsEditor/2560.180.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1614699719569" />
+    <state x="987" y="433" width="585" height="534" key="find.popup" timestamp="1614694789073">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="987" y="433" width="585" height="534" key="find.popup/2560.180.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1614694789073" />
     <state x="1072" y="558" key="scopes" timestamp="1614611793568">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

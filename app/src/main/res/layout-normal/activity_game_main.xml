@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context="sarveshchavan777.triviaquiz.MainGameActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -62,7 +62,7 @@
                 android:textSize="20sp" />
 
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <View
         android:layout_width="match_parent"

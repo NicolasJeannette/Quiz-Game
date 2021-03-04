@@ -226,6 +226,8 @@ public class MainGameActivity extends AppCompatActivity {
     //This method is called when user ans is wrong
     //this method will navigate user to the activity PlayAgain
     public void gameLostPlayAgain() {
+        VibratorManager vm = new VibratorManager(MainGameActivity.this);
+        vm.playVibrator(1);
         Intent intent = new Intent(this, PlayAgain.class);
         startActivity(intent);
         finish();
