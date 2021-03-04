@@ -2,11 +2,13 @@ package sarveshchavan777.triviaquiz;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -15,9 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 
-
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 import info.hoang8f.widget.FButton;
@@ -30,7 +34,12 @@ public class MainGameActivity extends AppCompatActivity {
     TriviaQuestion currentQuestion;
     List<TriviaQuestion> list;
     int qid = 0;
-    int timeValue = 20;
+
+
+  private static final long timeValue = 22000;
+   private long tempsrestant = 0;
+   private long tempsfin = 0;
+   private boolean timermarche;
     int coinValue = 0;
     CountDownTimer countDownTimer;
     Typeface tb, sb;
@@ -86,40 +95,63 @@ public class MainGameActivity extends AppCompatActivity {
         currentQuestion = list.get(qid);
 
         //countDownTimer
-        countDownTimer = new CountDownTimer(22000, 1000) {
-            public void onTick(long millisUntilFinished) {
+        if (timermarche){
 
-                //here you can have your logic to set text to timeText
-                timeText.setText(String.valueOf(timeValue) + "\"");
+        }
+        else
+        {Timer();}
 
-                //With each iteration decrement the time by 1 sec
-                timeValue -= 1;
 
-                //This means the user is out of time so onFinished will called after this iteration
-                if (timeValue == -1) {
-
-                    //Since user is out of time setText as time up
-                    resultText.setText(getString(R.string.timeup));
-
-                    //Since user is out of time he won't be able to click any buttons
-                    //therefore we will disable all four options buttons using this method
-                    disableButton();
-                }
-            }
-
-            //Now user is out of time
-            public void onFinish() {
-                //We will navigate him to the time up activity using below method
-                timeUp();
-            }
-        }.start();
 
         //This method will set the que and four options
         updateQueAndOptions();
 
 
     }
+    public void TextTimer()
+    {
+        int seconds = (int) (tempsrestant / 1000) % 60;
+        String temps = String.format(Locale.getDefault(), "%02d", seconds);
 
+        timeText.setText(temps);
+        if (timeValue <= -1) {
+
+            //Since user is out of time setText as time up
+            resultText.setText(getString(R.string.timeup));
+            timermarche = false;
+            //Since user is out of time he won't be able to click any buttons
+            //therefore we will disable all four options buttons using this method
+            disableButton();
+        }
+    }
+
+    public void Timer()
+    {
+        tempsfin =  System.currentTimeMillis() + tempsrestant;
+        countDownTimer = new CountDownTimer(tempsrestant, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                //here you can have your logic to set text to timeText
+
+                tempsrestant = millisUntilFinished;
+                //With each iteration decrement the time by 1 sec
+
+
+                //This means the user is out of time so onFinished will called after this iteration
+                TextTimer();
+            }
+
+            //Now user is out of time
+            @Override
+            public void onFinish() {
+                timermarche = false;
+                //We will navigate him to the time up activity using below method
+                timeUp();
+            }
+        }.start();
+        timermarche = true;
+    }
 
     public void updateQueAndOptions() {
 
@@ -131,7 +163,7 @@ public class MainGameActivity extends AppCompatActivity {
         buttonD.setText(currentQuestion.getOptD());
 
 
-        timeValue = 20;
+
 
         //Now since the user has ans correct just reset timer back for another que- by cancel and start
         countDownTimer.cancel();
@@ -243,27 +275,46 @@ public class MainGameActivity extends AppCompatActivity {
         finish();
     }
 
-    //If user press home button and come in the game from memory then this
-    //method will continue the timer from the previous time it left
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        countDownTimer.start();
-    }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        SharedPreferences preferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        tempsrestant = preferences.getLong("timerrestant",  timeValue);
+        timermarche = preferences.getBoolean("timermarche", false);
+        TextTimer();
+        if (timermarche){
+            tempsfin = preferences.getLong("timerfin",0);
+            tempsrestant =  tempsfin - System.currentTimeMillis();
+
+            if (tempsrestant < 0){
+                tempsrestant = 0;
+                timermarche = false;
+                TextTimer();
+            }
+            else{
+                Timer();
+            }
+        }
+    }
     //When activity is destroyed then this will cancel the timer
     @Override
     protected void onStop() {
         super.onStop();
-        countDownTimer.cancel();
+        SharedPreferences preferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong("timerrestant",tempsrestant);
+        editor.putBoolean("timermarche",timermarche);
+        editor.putLong("timerfin", tempsfin);
+        editor.apply();
+
+        if (countDownTimer != null){
+            countDownTimer.cancel();
+        }
+
     }
 
-    //This will pause the time
-    @Override
-    protected void onPause() {
-        super.onPause();
-        countDownTimer.cancel();
-    }
+
 
     //On BackPressed
     @Override
