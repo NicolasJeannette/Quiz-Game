@@ -34,10 +34,10 @@ public class MainGameActivity extends AppCompatActivity {
     CountDownTimer countDownTimer;
     Typeface tb, sb;
     long display;
-    boolean timermarche;
 
 
-    private boolean mTimerRunning;
+
+    private boolean mTimerRunning = false;
     private long mTimeLeftInMillis;
     private long mEndTime;
 
@@ -90,7 +90,7 @@ public class MainGameActivity extends AppCompatActivity {
 
         //currentQuestion will hold the que, 4 option and ans for particular id
         currentQuestion = list.get(qid);
-
+        reset();
         if (mTimerRunning) {
             pause();
         } else {
@@ -129,7 +129,7 @@ public class MainGameActivity extends AppCompatActivity {
 
             //Since user is out of time setText as time up
             resultText.setText(getString(R.string.timeup));
-            timermarche = false;
+            mTimerRunning = false;
             //Since user is out of time he won't be able to click any buttons
             //therefore we will disable all four options buttons using this method
             disableButton();
